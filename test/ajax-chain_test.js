@@ -1,5 +1,5 @@
 (function($){
-    
+
     /* global sinon */
     
     // sinon fake server setup

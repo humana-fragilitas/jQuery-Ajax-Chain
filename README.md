@@ -1,4 +1,4 @@
-jQuery-Ajax-Chain
+jQuery Ajax Chain
 ==========
 
 The **$.AjaxChain** jQuery helper class allows to perform multiple synchronously chained Ajax calls; its optional settings make possible to filter data and pass it between succeeding calls, manage custom errors, create caching mechanisms and conditionally halt queue progression.

@@ -1,12 +1,40 @@
 {
     "name": "jquery-ajax-chain",
-    "version": "1.0.0",
-    "private": true,
+    "description": "jQuery helper class meant to ease up the process of making multiple synchronously chained Ajax calls.",
+    "keywords": [
+        "jquery-plugin",
+        "javascript",
+        "ajax",
+        "chain",
+        "sequence",
+        "series",
+        "waterfall",
+        "async"
+    ],
+    "version": "1.0.1",
+    "dependencies": {
+        "jquery": ">=1.5.0"
+    },
+    "author": "Andrea Blasio (https://github.com/humana-fragilitas)",
+    "license": "MIT",
+    "main": "./dist/jquery.ajax-chain.min.js",
+    "homepage": "https://github.com/humana-fragilitas",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/humana-fragilitas/jQuery-Ajax-Chain.git"
+    },
+    "bugs": {
+        "url": "https://github.com/humana-fragilitas/jQuery-Ajax-Chain/issues",
+        "email": "andrea@humanafragilitas.com"
+    },
     "engines": {
         "node": ">= 0.8.0"
     },
     "scripts": {
         "test": "grunt qunit"
+    },
+    "dependencies": {
+        "jquery": ">=1.5.0"
     },
     "devDependencies": {
         "grunt-contrib-jshint": "~0.10.0",
