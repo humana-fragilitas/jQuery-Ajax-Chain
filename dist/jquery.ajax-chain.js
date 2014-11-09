@@ -1,5 +1,5 @@
 /**
- * jQuery Ajax Chain - v1.0.0 - 2014-11-09
+ * jQuery Ajax Chain - v1.0.1 - 2014-11-09
  * https://github.com/humana-fragilitas/jQuery-Ajax-Chain
  * Copyright (c) 2013-2014 Andrea Blasio; Licensed MIT
  */
@@ -60,7 +60,6 @@
                 tempArgument,
                 i;
             
-            // Parse function arguments
             if ($.isArray(confObj)) {
             
                 tempArguments = confObj;
@@ -74,7 +73,6 @@
             
             tempArgumentsLength = tempArguments.length;
             
-            // Enqueue AjaxChainQuery object instances
             for (i = 0; i < tempArgumentsLength; i += 1) {
                 
                 tempArgument = tempArguments[i];
@@ -95,7 +93,7 @@
          * Dequeues current queue
          *  
          * @method _dequeue
-         * @param {*} [data] optionally overwrites the next queued Ajax call
+         * @param {Object} [data] optionally overwrites the next queued Ajax call
          *                   'data' property value specified in the original jQuery $.ajax method
          *                   configuration object (see 'ajaxSettings' property of $.AjaxChain configuration object)
          * @param {String} [urlFragment] optionally allows to append string fragments
@@ -107,12 +105,6 @@
         
         function _dequeue(data, urlFragment){
 
-            /**
-             * Proceed to next AjaxChainQuery object,
-             * trigger AjaxChainQuery object instance initialization method
-             * and attach handlers to the returned Promise object instance
-             */
-            
             if (currentQueryObj = queries.shift()) {
             
                 currentQueryObj.execute(data, urlFragment).
@@ -187,7 +179,7 @@
         
             } else {
             
-                // Resolve the entire chain with the current results
+                // Resolve the entire queue with the currently stored results
                 deferred.resolve(queriesResults);
             
             }
@@ -320,8 +312,8 @@
             }
             
             /**
-             * Returning a truthy value prevents the queue from
-             * being halted in case of $.Ajax error
+             * Returning a truthy value allows to prevent the queue from
+             * being halted in case of Ajax error
              */
             
             function defaultIsSkippable(response){
@@ -331,7 +323,7 @@
             }
             
             /**
-             * Returning a truthy value prevents the queue from further
+             * Returning a truthy value prevents from further
              * progressing to the succeeding Ajax calls;
              * the queue is then resolved
              */
