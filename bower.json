@@ -1,0 +1,41 @@
+{
+    "name": "jquery-ajax-chain",
+    "version": "1.0.0",
+    "authors": [
+        "Andrea Blasio <andrea@humanafragilitas.com>"
+    ],
+    "description": "jQuery helper class meant to ease up the process of making multiple synchronously chained Ajax calls.",
+    "main": "./dist/jquery.ajax-chain.min.js",
+    "moduleType": [
+        "amd",
+        "globals"
+    ],
+    "keywords": [
+        "jquery",
+        "javascript",
+        "ajax",
+        "chain",
+        "sequence",
+        "series",
+        "waterfall",
+        "async"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/humana-fragilitas",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "jquery": ">=1.5.0"
+    },
+    "devDependencies": {
+        "qunit": "~1.15.0",
+        "sinonjs": "~1.10.2",
+        "sinon-ie": "~1.5.2",
+        "sinon-qunit": "~2.0.0"
+    }
+}
