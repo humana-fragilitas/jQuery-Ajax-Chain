@@ -220,28 +220,28 @@ Examples
 ```javascript
 var ajaxChain = new $.AjaxChain();
 ajaxChain.enqueue([configurationObject[,configurationObjectN, ... ]])
-         .then(doneCallback, failCallback, progressCallback)
-         .dequeue();
+         .dequeue()
+		 .then(doneCallback, failCallback, progressCallback);
 ```
-### Common patterns ###
+### Common configuration patterns ###
 ```xml
-<!-- The succeeding example assumes the following xml response: -->
+<!-- The succeeding examples assume the following xml response: -->
 
-   <?xml version = "1.0"?>
-   <items>
-       <item id="000001">
-           <name>Item #1</name>
-           <categoryId>1</categoryId>
-       </item>
-       <item id="000002">
-           <name>Item #2</name>
-           <categoryId>2</categoryId>
-       </item>
-       <item id="000003">
-           <name>Item #3</name>
-           <categoryId>3</categoryId>
-       </item>
-   </items>
+<?xml version = "1.0"?>
+<items>
+    <item id="000001">
+        <name>Item #1</name>
+        <categoryId>1</categoryId>
+    </item>
+    <item id="000002">
+        <name>Item #2</name>
+        <categoryId>2</categoryId>
+    </item>
+    <item id="000003">
+        <name>Item #3</name>
+        <categoryId>3</categoryId>
+    </item>
+</items>
 
 ```
 ##### 1. Dynamically passing data between succeeding Ajax calls:
@@ -251,28 +251,28 @@ var ajaxChain,
     configurationObj2;
 ajaxChain = new $.AjaxChain();
 configurationObj1 = {
-   ajaxSettings: {
-      type: "GET",
-      dataType: "xml",
-      url: "/items"
+    ajaxSettings: {
+        type: "GET",
+        dataType: "xml",
+        url: "/items"
    },
    transform: function(xmlResponse){
-      var nextCallDataObj;
-      if (xmlResponse) {
-         nextCallDataObj = {
-            id: $(xmlResponse).find('item')
-                  .first().attr('id');
-         };                   
-         return nextCallDataObj;               
-      }                  
-      return false;              
+        var nextCallDataObj;
+        if (xmlResponse) {
+            nextCallDataObj = {
+                id: $(xmlResponse).find('item')
+                                  .first().attr('id');
+            };                   
+            return nextCallDataObj;               
+        }                  
+        return false;              
    }
 };
 // configuration object omitted for brevity
 configurationObj2 = { . . . };
 ajaxChain.enqueue([configurationObj1, configurationObj2])
-         .then(doneCallback, failCallback, progressCallback)
-         .dequeue();
+         .dequeue()
+		 .then(doneCallback, failCallback, progressCallback);
 ```
 ##### 2. Dynamically appending url fragments between succeeding Ajax calls:
 ```javascript
@@ -281,27 +281,26 @@ var ajaxChain,
     configurationObj2;
 ajaxChain = new $.AjaxChain();
 configurationObj1 = {
-   ajaxSettings: {
-      type: "GET",
-      dataType: "xml",
-      url: "/items"
-   },
-   appendToUrl: function(xmlResponse){
-      var nextCallUrlFragment;
-      if (xmlResponse) {
-         nextCallUrlFragment = "/" + $(xmlResponse).find('item')
-                                      .first().attr('id');
-         };                 
-         return nextCallUrlFragment;               
-      }               
-      return "";             
-   }
+    ajaxSettings: {
+        type: "GET",
+        dataType: "xml",
+        url: "/items"
+    },
+    appendToUrl: function(xmlResponse){
+        var nextCallUrlFragment = "";
+        if (xmlResponse) {
+            nextCallUrlFragment = "/" + $(xmlResponse).find('item')
+                                                      .first()
+												      .attr('id');
+        };                 
+        return nextCallUrlFragment;               
+    }               
 };
 // configuration object omitted for brevity
 configurationObj2 = { . . . };
 ajaxChain.enqueue([configurationObj1, configurationObj2])
-         .then(doneCallback, failCallback, progressCallback)
-         .dequeue();
+         .dequeue()
+		 .then(doneCallback, failCallback, progressCallback);
 ```
 ##### 3. Dynamically resolving queue upon custom errors:
 ```javascript
@@ -310,18 +309,21 @@ var ajaxChain,
     configurationObj2;
 ajaxChain = new $.AjaxChain();
 configurationObj1 = {
-   ajaxSettings: {
-      type: "GET",
-      dataType: "xml",
-      url: "/items"
-   },
-   hasErrors: function(xmlResponse){
-      var $tempXmlResponse,
+    ajaxSettings: {
+        type: "GET",
+        dataType: "xml",
+        url: "/items"
+    },
+    hasErrors: function(xmlResponse){
+        var $tempXmlResponse,
             categoryFilter = "1";
         $tempXmlResponse = $(xmlResponse);
         // check current Ajax call response for errors
-        if ($tempXmlResponse && $tempXmlResponse.find("item").eq(0).
-                find("categoryId").text().indexOf(categoryFilter) !== -1) {
+        if ($tempXmlResponse &&
+		    $tempXmlResponse.find("item").eq(0)
+                            .find("categoryId")
+							.text()
+							.indexOf(categoryFilter) !== -1) {
             return "The following exception occurred: forbidden category n° " + categoryFilter;
         }
         return false;         
@@ -330,8 +332,8 @@ configurationObj1 = {
 // configuration object omitted for brevity
 configurationObj2 = { . . . };
 ajaxChain.enqueue([configurationObj1, configurationObj2])
-         .then(doneCallback, failCallback, progressCallback)
-         .dequeue();
+         .dequeue()
+		 .then(doneCallback, failCallback, progressCallback);
 ```
 ##### 4. Creating caching mechanisms:
 ```javascript
@@ -340,26 +342,24 @@ var ajaxChain,
     configurationObj2;
 ajaxChain = new $.AjaxChain();
 configurationObj1 = {
-   ajaxSettings: {
-      type: "GET",
-      dataType: "xml",
-      url: "/items"
-   },
-   hasCache: function(xmlResponse){  
-        var tempItems;
+    ajaxSettings: {
+        type: "GET",
+        dataType: "xml",
+        url: "/items"
+    },
+    hasCache: function(xmlResponse){  
         // retrieve possible cached results
-        tempItems = itemsModel.get();
-        if (tempItems) {
-            return tempItems;
+        if (itemsCollection.length) {
+            return itemsCollection.toJSON();
         }
         return false;     
-   }
+    }
 };
 // configuration object omitted for brevity
 configurationObj2 = { . . . };
 ajaxChain.enqueue([configurationObj1, configurationObj2])
-         .then(doneCallback, failCallback, progressCallback)
-         .dequeue();
+         .dequeue()
+		 .then(doneCallback, failCallback, progressCallback);
 ```
 ##### 5. Halting queue upon conditional logic:
 ```javascript
@@ -368,25 +368,27 @@ var ajaxChain,
     configurationObj2;
 ajaxChain = new $.AjaxChain();
 configurationObj1 = {
-   ajaxSettings: {
-      type: "GET",
-      dataType: "xml",
-      url: "/items"
-   },
-   hasHaltingCapabilities: function(xmlResponse){
+    ajaxSettings: {
+        type: "GET",
+        dataType: "xml",
+        url: "/items"
+    },
+    hasHaltingCapabilities: function(xmlResponse){
         var $tempXmlResponse;
         $tempXmlResponse = $(xmlResponse);
-        if ($tempXmlResponse.find("item").eq(0).find("categoryId").text().indexOf("2") !== -1) {
+        if ($tempXmlResponse.find("item").eq(0)
+		                    .find("categoryId")
+							.text().indexOf("1") !== -1) {
             return true;
         }
         return false;        
-   }
+    }
 };
 // configuration object omitted for brevity
 configurationObj2 = { . . . };
 ajaxChain.enqueue([configurationObj1, configurationObj2])
-         .then(doneCallback, failCallback, progressCallback)
-         .dequeue();
+         .dequeue()
+		 .then(doneCallback, failCallback, progressCallback);
 ```
 ##### 6. Preventing a queue from being halted in case of $.Ajax error:
 ```javascript
@@ -395,19 +397,19 @@ var ajaxChain,
     configurationObj2;
 ajaxChain = new $.AjaxChain();
 configurationObj1 = {
-   ajaxSettings: {
-      type: "GET",
-      dataType: "xml",
-      url: "/items"
-   },
-   isSkippable: function(xmlResponse){
+    ajaxSettings: {
+        type: "GET",
+        dataType: "xml",
+        url: "/items"
+    },
+    isSkippable: function(xmlResponse){
         return true;
     }
 };
 // configuration object omitted for brevity
 configurationObj2 = { . . . };
 ajaxChain.enqueue([configurationObj1, configurationObj2])
-         .then(doneCallback, failCallback, progressCallback)
-         .dequeue();
+         .dequeue()
+		 .then(doneCallback, failCallback, progressCallback);
 ```
 **Note:** this project was packaged with [grunt-init-jquery](https://github.com/gruntjs/grunt-init-jquery).
