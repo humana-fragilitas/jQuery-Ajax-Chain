@@ -1,18 +1,22 @@
 /**
- * jQuery Ajax Chain - v1.0.3 - 2015-01-06
+ * jQuery Ajax Chain - v1.0.4 - 2015-08-31
  * https://github.com/humana-fragilitas/jQuery-Ajax-Chain
  * Copyright (c) 2013-2015 Andrea Blasio; Licensed MIT
  */
-;(function(factory){
+; (function (factory) {
 
     if (typeof define === 'function' && define.amd) {
     
-        // amd: register jquery plugin as an anonymous module
+        // amd
         define(['jquery'], factory);
     
+    } else if (typeof module === 'object' && typeof module.exports === 'object') {
+        
+        // commonjs
+        factory(require('jquery'));
+
     } else {
     
-        // register jquery plugin in browser global object
         factory(jQuery);
         
     }
@@ -23,10 +27,10 @@
      * @module $
      * @class AjaxChain
      * @constructor
-     * @return {Object} Promise object instance (http://api.jquery.com/Types/#Promise)
+     * @return {Object} Master deferred promise instance extended with AjaxChain custom methods (http://api.jquery.com/Types/#Promise)
      */
-     
-    $.AjaxChain = function AjaxChain(){
+
+    $.AjaxChain = function AjaxChain() {
         
         'use strict';
         
@@ -35,10 +39,12 @@
             queriesResults = [],
             currentQueryObj,
             deferred,
+            promise,
             AjaxChainQuery;
         
         // Master Deferred (http://api.jquery.com/category/deferred-object/) object instance
-        deferred = new $.Deferred();
+        deferred = $.Deferred();
+        promise = deferred.promise(this);
         
         /***********************************************/
         /* Private methods                             */
@@ -85,7 +91,7 @@
             
             }
             
-            return deferred.promise();
+            return promise;
         
         } // _enqueue()
         
@@ -94,8 +100,8 @@
          *  
          * @method _dequeue
          * @param {Object} [data] optionally overwrites the next queued Ajax call
-         *                   'data' property value specified in the original jQuery $.ajax method
-         *                   configuration object (see 'ajaxSettings' property of $.AjaxChain configuration object)
+         *                        'data' property value specified in the original jQuery $.ajax method
+         *                        configuration object (see 'ajaxSettings' property of $.AjaxChain configuration object)
          * @param {String} [urlFragment] optionally allows to append string fragments
          *                               to the next queued Ajax call 'url' property value specified in the original jQuery $.ajax
          *                               method configuration object (see 'ajaxSettings' property of $.AjaxChain configuration object);
@@ -114,7 +120,7 @@
                             
             }
                             
-            return deferred.promise();        
+            return promise;
         
         } // _dequeue()
         
@@ -129,7 +135,7 @@
         
             queries.length = 0;
             
-            return deferred.promise();
+            return promise;
         
         } // _clearQueue()
         
@@ -247,7 +253,7 @@
             tempIndex = index;
             
             // create master Deferred (http://api.jquery.com/category/deferred-object/) instance
-            deferred = new $.Deferred();
+            deferred = $.Deferred();
             
             // Merge user defined parameters with defaults
             tempQuerySettings = querySettings || {};
@@ -593,30 +599,33 @@
         
         /**
          * Enqueues configuration objects for later processing
-         *  
-         * @method _enqueue
+         *
+         * @method enqueue
          * @param {Object} One or more configuration objects
+         * @return {Object} Master deferred promise instance extended with AjaxChain custom methods
          */
         
-        deferred.promise().enqueue = _enqueue;
+        AjaxChain.prototype.enqueue = _enqueue;
         
         /**
          * Dequeues current queue
-         *  
-         * @method _dequeue
+         *
+         * @method dequeue
+         * @return {Object} Master deferred promise instance extended with AjaxChain custom methods
          */
         
-        deferred.promise().dequeue = _dequeue;
+        AjaxChain.prototype.dequeue = _dequeue;
         
         /**
          * Clears current queue
-         *  
-         * @method _clearQueue
+         *
+         * @method clearQueue
+         * @return {Object} Master deferred promise instance extended with AjaxChain custom methods
          */
+
+        AjaxChain.prototype.clearQueue = _clearQueue;
         
-        deferred.promise().clearQueue = _clearQueue;
-        
-        return deferred.promise();
+        return promise;
     
     }; // AjaxChain()
     
