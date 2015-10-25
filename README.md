@@ -250,6 +250,20 @@ ajaxChain.enqueue([configurationObj1, configurationObj2])
          .dequeue()
 		 .then(doneCallback, failCallback, progressCallback);
 ```
+
+### TypeScript ###
+
+##### Visual Studio (NuGet) #####
+
+1. Open the Package Manager Console
+2. `Install-Package jquery-ajax-chain.TypeScript.DefinitelyTyped`
+
+##### Node.js (TSD) #####
+
+1. Open a shell in your project's scripts folder
+2. `npm install tsd -g`
+3. `tsd install jquery-ajax-chain --save`
+
 ### Testing ###
 
 ##### Headless #####

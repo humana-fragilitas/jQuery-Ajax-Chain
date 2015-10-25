@@ -1,5 +1,5 @@
 /**
- * jQuery Ajax Chain - v1.0.4 - 2015-08-31
+ * jQuery Ajax Chain - v1.0.5 - 2015-10-25
  * https://github.com/humana-fragilitas/jQuery-Ajax-Chain
  * Copyright (c) 2013-2015 Andrea Blasio; Licensed MIT
  */
@@ -13,7 +13,7 @@
     } else if (typeof module === 'object' && typeof module.exports === 'object') {
         
         // commonjs
-        factory(require('jquery'));
+        module.exports = factory(require('jquery'));
 
     } else {
     
@@ -629,4 +629,6 @@
     
     }; // AjaxChain()
     
+	return $.AjaxChain;
+	
 }));

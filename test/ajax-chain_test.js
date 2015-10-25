@@ -47,7 +47,6 @@
         // default assignments
         tempAjaxChain = new $.AjaxChain();
 
-        // Not a bad test to run on collection methods.
         deepEqual(tempAjaxChain.enqueue(), tempAjaxChain, 'enqueue() method returns the same Promise object instance returned by $.AjaxChain constructor.');
         deepEqual(tempAjaxChain.dequeue(), tempAjaxChain, 'dequeue() method returns the same Promise object instance returned by $.AjaxChain constructor.');
         deepEqual(tempAjaxChain.clearQueue(), tempAjaxChain, 'clearQueue() method returns the same Promise object instance returned by $.AjaxChain constructor.');
@@ -71,7 +70,6 @@
                                { ajaxSettings: { url: "/test-call-1" } },
                                { ajaxSettings: { url: "/test-call-2" } }]).dequeue().done(function(response){
 
-            // Not a bad test to run on collection methods.
             strictEqual(response.length, 3, 'Enqueuing and subsequently dequeuing [n] valid and successful configuration objects via enqueue() and dequeue() public methods causes the $.AjaxChain Promise object instance done handler to be called with an array containing [n] results as argument.');
             
             QUnit.start();
@@ -95,7 +93,6 @@
         // AjaxChain configuration
         tempAjaxChain.enqueue({ ajaxSettings: { url: "/test-call-0" } }).clearQueue().enqueue({ ajaxSettings: { url: "/test-call-1" } }).dequeue().done(function(response){
 
-            // Not a bad test to run on collection methods.
             strictEqual(response[0], "test-call-1-response", 'The public method dequeue() allows to remove any currently queued configuration object(s).');
             
             QUnit.start();
@@ -124,7 +121,6 @@
         tempAjaxChain.enqueue([{ ajaxSettings: { url: "/test-call-0" }, transform: function(response){ if (response === "test-call-0-response") { return { id: "1" }; } } },
                                { ajaxSettings: { url: "/test-call" } }]).dequeue().done(function(response){
 
-            // Not a bad test to run on collection methods.
             strictEqual(response[1], "test-call-1-response", 'Returning a truthy value allows to pass current Ajax call processed results to the next queued one, overwriting its "data" property value specified in the "ajaxSettings" object.');
             
             QUnit.start();
@@ -149,7 +145,6 @@
         tempAjaxChain.enqueue([{ ajaxSettings: { url: "/test-call-0" }, appendToUrl: function(response){ if (response === "test-call-0-response") { return "-1"; } } },
                                { ajaxSettings: { url: "/test-call" } }]).dequeue().done(function(response){
 
-            // Not a bad test to run on collection methods.
             strictEqual(response[1], "test-call-1-response", 'Returning a truthy value (String) allows to append to the next queued Ajax call "ajaxSettings" object "url" property value an arbitrary string.');
             
             QUnit.start();
@@ -174,7 +169,6 @@
         tempAjaxChain.enqueue([{ ajaxSettings: { url: "/test-call-0" }, hasErrors: function(response){ if (response === "test-call-0-response") { return true; } } },
                                { ajaxSettings: { url: "/test-call-1" }}]).dequeue().fail(function(response){
 
-            // Not a bad test to run on collection methods.
             strictEqual(response.length, 1, 'Returning a truthy value allows to immediately resolve the queue.');
             
             QUnit.start();
@@ -198,7 +192,6 @@
         // AjaxChain configuration
         tempAjaxChain.enqueue([{ ajaxSettings: { url: "/test-call-0" }, hasCache: function(){ return "test-call-0-cached-response"; } }]).dequeue().done(function(response){
 
-            // Not a bad test to run on collection methods.
             strictEqual(response[0], "test-call-0-cached-response", 'Returning a truthy value allows to prevent the current Ajax call from being executed: any success handlers attached to it are passed the returned truthy value.');
             
             QUnit.start();
@@ -223,7 +216,6 @@
         tempAjaxChain.enqueue([{ ajaxSettings: { url: "/test-call-0" }, hasHaltingCapabilities: function(response){ if (response === "test-call-0-response") { return "test-call-0-cached-response"; } } },
                                { ajaxSettings: { url: "/test-call-1" }}]).dequeue().done(function(response){
 
-            // Not a bad test to run on collection methods.
             strictEqual(response.length, 1, 'Returning a truthy allows to prevent the next queued Ajax call from being executed.');
             
             QUnit.start();
@@ -248,7 +240,6 @@
         tempAjaxChain.enqueue([{ ajaxSettings: { url: "/http-500-error" }, isSkippable: function(){ return true; } },
                                { ajaxSettings: { url: "/test-call-1" }}]).dequeue().done(function(response){
 
-            // Not a bad test to run on collection methods.
             strictEqual(response.length, 2, 'Returning a truthy value prevents the queue from being halted in case of $.Ajax error.');
             
             QUnit.start();
