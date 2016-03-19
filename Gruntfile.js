@@ -1,6 +1,8 @@
 "use strict";
 
 module.exports = function(grunt) {
+    
+    var serverPort = grunt.option("port") || 9001;
 
     // project configuration
     grunt.initConfig({
@@ -40,6 +42,16 @@ module.exports = function(grunt) {
         qunit: {
             files: ["test/**/*.html"]
         },
+        connect: {
+            server: {
+                options: {
+                    port: serverPort,
+                    keepalive: true,
+                    base: ".",
+                    open: "http://localhost:" + serverPort + "/test/ajax-chain.html"
+                }
+            }
+        },
         jshint: {
             options: {
                 jshintrc: true,
@@ -77,10 +89,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-qunit");
+    grunt.loadNpmTasks("grunt-contrib-connect");
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-watch");
 
     // default task
     grunt.registerTask("default", ["jshint", "qunit", "clean", "concat", "uglify"]);
+    grunt.registerTask("test:headless", ["qunit"]);
+    grunt.registerTask("test:browser", ["connect"]);
 
 };
