@@ -18,7 +18,7 @@ Documentation
 
 | *name* | *chainable* | *description* |
 | :--    | :--             | :--         |
-| `enqueue(confObj: AjaxChainConfiguration | AjaxChainConfiguration[]):JQueryAjaxChain` | `yes` | Enqueues one or more [configuration objects](#configuration-object) for later processing. |
+| `enqueue(confObj: AjaxChainConfiguration \| AjaxChainConfiguration[]):JQueryAjaxChain` | `yes` | Enqueues one or more [configuration objects](#configuration-object) for later processing. |
 | `dequeue():JQueryAjaxChain` | `yes` | Sequentially and synchronously dequeues the [configuration objects](#configuration-object) enqueued via **`enqueue()`** method in the order they were added, triggering the related Ajax calls. |
 | `clearQueue():JQueryAjaxChain` | `yes` | Clears the currently queued configuration objects. |
 | `state():string` | `no` | [jQuery API Reference](http://api.jquery.com/deferred.state/). |
