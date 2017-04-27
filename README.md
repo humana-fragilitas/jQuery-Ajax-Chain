@@ -22,11 +22,11 @@ Documentation
 | `dequeue():JQueryAjaxChain` | `yes` | Sequentially and synchronously dequeues the [configuration objects](#configuration-object) enqueued via **`enqueue()`** method in the order they were added, triggering the related Ajax calls. |
 | `clearQueue():JQueryAjaxChain` | `yes` | Clears the currently queued configuration objects. |
 | `state():string` | `no` | [jQuery API Reference](http://api.jquery.com/deferred.state/). |
-| `then<U>(doneFilter: (value?: T, ...values: any[]) => U | JQueryPromise<U>, failFilter?: (...reasons: any[]) => any, progressFilter?: (...progression: any[]) => any):JQueryPromise<U>` | `yes` | [jQuery API Reference](http://api.jquery.com/deferred.then/). |
-| `done(doneCallback1?: JQueryPromiseCallback<T> | JQueryPromiseCallback<T>[], ...doneCallbackN: Array<JQueryPromiseCallback<T> | JQueryPromiseCallback<T>[]>):JQueryPromise<T>` | `yes` | [jQuery API Reference](http://api.jquery.com/deferred.done/). |
-| `fail(failCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...failCallbacksN: Array<JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[]>):JQueryPromise<T>` | `yes` | [jQuery API Reference](http://api.jquery.com/deferred.fail/). |
-| `always(alwaysCallback1?: JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[], ...alwaysCallbacksN: Array<JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[]>):JQueryPromise<T>` | `yes` | [jQuery API Reference](http://api.jquery.com/deferred.always/). |
-| `progress(progressCallback1?: JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[], ...progressCallbackN: Array<JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[]>):JQueryPromise<T>` | `yes` | [jQuery API Reference](http://api.jquery.com/deferred.progress/). |
+| `then<U>(doneFilter: (value?: T, ...values: any[]) => U \| JQueryPromise<U>, failFilter?: (...reasons: any[]) => any, progressFilter?: (...progression: any[]) => any):JQueryPromise<U>` | `yes` | [jQuery API Reference](http://api.jquery.com/deferred.then/). |
+| `done(doneCallback1?: JQueryPromiseCallback<T> \| JQueryPromiseCallback<T>[], ...doneCallbackN: Array<JQueryPromiseCallback<T> \| JQueryPromiseCallback<T>[]>):JQueryPromise<T>` | `yes` | [jQuery API Reference](http://api.jquery.com/deferred.done/). |
+| `fail(failCallback1?: JQueryPromiseCallback<any> \| JQueryPromiseCallback<any>[], ...failCallbacksN: Array<JQueryPromiseCallback<any> \| JQueryPromiseCallback<any>[]>):JQueryPromise<T>` | `yes` | [jQuery API Reference](http://api.jquery.com/deferred.fail/). |
+| `always(alwaysCallback1?: JQueryPromiseCallback<any> \| JQueryPromiseCallback<any>[], ...alwaysCallbacksN: Array<JQueryPromiseCallback<any> \| JQueryPromiseCallback<any>[]>):JQueryPromise<T>` | `yes` | [jQuery API Reference](http://api.jquery.com/deferred.always/). |
+| `progress(progressCallback1?: JQueryPromiseCallback<any> \| JQueryPromiseCallback<any>[], ...progressCallbackN: Array<JQueryPromiseCallback<any> \| JQueryPromiseCallback<any>[]>):JQueryPromise<T>` | `yes` | [jQuery API Reference](http://api.jquery.com/deferred.progress/). |
 
 #### Callback functions arguments ####
 
